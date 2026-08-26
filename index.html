@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PlantDoc | AI Plant Health Monitor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f8f3;
+            color: #1f2d1f;
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .logo span {
+            color: #66bb6a;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #2e7d32;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 10%;
+            background: linear-gradient(135deg, #e8f5e9, #ffffff);
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            color: #1b5e20;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #4caf50;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 35px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            padding: 16px 30px;
+            margin: 10px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .download-btn {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: #1b5e20;
+            transform: translateY(-3px);
+        }
+
+        .learn-btn {
+            border: 2px solid #2e7d32;
+            color: #2e7d32;
+        }
+
+        .learn-btn:hover {
+            background: #e8f5e9;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 40px;
+            color: #1b5e20;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 18px;
+        }
+
+        .feature-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ABOUT */
+        .about {
+            padding: 80px 10%;
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: auto;
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        /* DOWNLOAD */
+        .download {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .download h2 {
+            font-size: 40px;
+            color: #1b5e20;
+            margin-bottom: 20px;
+        }
+
+        .download p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .big-download {
+            display: inline-block;
+            background: #2e7d32;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .big-download:hover {
+            background: #1b5e20;
+            transform: scale(1.05);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #173d1a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p {
+            color: #d5e8d6;
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 5%;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .section-title,
+            .about h2,
+            .download h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">Plant<span>Doc</span> 🌱</div>
+
+        <div>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#download">Download</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">🌿🤖</div>
+
+            <h1>Your Plant's <span>AI Doctor</span></h1>
+
+            <p>
+                PlantDoc helps you monitor your plants from afar and
+                check their health using the power of Artificial Intelligence.
+                Keep your plants healthy, anytime and anywhere.
+            </p>
+
+            <div class="buttons">
+                <a href="#download" class="download-btn">
+                    📲 Download PlantDoc
+                </a>
+
+                <a href="#features" class="learn-btn">
+                    Learn More
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+
+        <h2 class="section-title">Smart Plant Care</h2>
+
+        <p class="section-description">
+            Everything you need to understand and monitor your plants.
+        </p>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Plant Health Check</h3>
+                <p>
+                    Use AI technology to analyze your plant and help identify
+                    possible health problems.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Monitor From Afar</h3>
+                <p>
+                    Keep track of your plants remotely and stay connected
+                    to their condition wherever you are.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>Plant Information</h3>
+                <p>
+                    Get useful information to better understand your plants
+                    and provide better care.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3>Smart Assistance</h3>
+                <p>
+                    Get helpful insights and recommendations to support
+                    healthier plant growth.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+        <h2>What is PlantDoc?</h2>
+
+        <p>
+            PlantDoc is an innovative plant monitoring application designed
+            to help plant owners understand their plants better. By combining
+            remote monitoring with Artificial Intelligence, PlantDoc makes
+            plant care smarter, easier, and more accessible.
+        </p>
+
+    </section>
+
+
+    <!-- DOWNLOAD -->
+    <section class="download" id="download">
+
+        <h2>Ready to Meet Your Plant's Doctor? 🌱</h2>
+
+        <p>
+            Download PlantDoc and start monitoring your plants today.
+        </p>
+
+        <!-- CHANGE plantdoc.apk TO YOUR ACTUAL APK FILE NAME -->
+        <a href="plantdoc.apk" class="big-download" download>
+            ⬇ Download PlantDoc APK
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 PlantDoc. Smart Plant Care Powered by AI. 🌿</p>
+    </footer>
+
+</body>
+</html>
