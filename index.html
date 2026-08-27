@@ -7,11 +7,14 @@
 
     <title>PlantDoc | AI Plant Health Monitor</title>
 
-    <!-- TENSORFLOW + TEACHABLE MACHINE -->
+    <!-- TensorFlow.js -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+
+    <!-- Teachable Machine -->
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -28,9 +31,7 @@
             color: #1f2d1f;
         }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
+        /* ================= NAVIGATION ================= */
 
         nav {
             display: flex;
@@ -65,10 +66,7 @@
             color: #2e7d32;
         }
 
-
-        /* =========================
-           HERO
-        ========================= */
+        /* ================= HERO ================= */
 
         .hero {
             min-height: 85vh;
@@ -86,10 +84,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 60px;
         }
-
-        /* LEFT SIDE */
 
         .hero-content {
             flex: 1;
@@ -149,13 +146,10 @@
             background: #e8f5e9;
         }
 
-
-        /* =========================
-           AI CAMERA RIGHT SIDE
-        ========================= */
+        /* ================= AI CAMERA ================= */
 
         .camera-section {
-            flex: 0 0 390px;
+            flex: 0 0 400px;
 
             background: white;
             padding: 25px;
@@ -169,7 +163,6 @@
         .camera-section h2 {
             color: #1b5e20;
             margin-bottom: 8px;
-            font-size: 25px;
         }
 
         .camera-description {
@@ -178,44 +171,51 @@
             margin-bottom: 20px;
         }
 
-        /* CAMERA */
+        /* VIDEO */
 
-        #webcam-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
+        #camera-container {
             width: 100%;
             min-height: 280px;
 
             background: #eef6ee;
+
             border-radius: 18px;
 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             overflow: hidden;
+
             margin-bottom: 15px;
         }
 
-        #webcam-container canvas {
-            width: 280px !important;
-            height: 280px !important;
+        #camera-container video {
+            width: 280px;
+            height: 280px;
+
+            object-fit: cover;
 
             border-radius: 15px;
         }
 
-        /* START CAMERA BUTTON */
+        /* CAMERA BUTTON */
 
         .camera-button {
             border: none;
+
             background: #2e7d32;
             color: white;
 
-            padding: 13px 28px;
+            padding: 14px 28px;
+
             border-radius: 25px;
 
             font-size: 15px;
             font-weight: bold;
 
             cursor: pointer;
+
             transition: 0.3s;
         }
 
@@ -227,16 +227,16 @@
         .camera-button:disabled {
             background: #999;
             cursor: not-allowed;
-            transform: none;
         }
 
-        /* AI RESULT */
+        /* AI RESULTS */
 
         .result-title {
             margin-top: 18px;
             margin-bottom: 8px;
 
             color: #2e7d32;
+
             font-weight: bold;
         }
 
@@ -249,10 +249,7 @@
             padding: 5px;
         }
 
-
-        /* =========================
-           FEATURES
-        ========================= */
+        /* ================= FEATURES ================= */
 
         .features {
             padding: 80px 10%;
@@ -273,15 +270,22 @@
 
         .feature-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
             gap: 25px;
         }
 
         .feature-card {
             background: white;
+
             padding: 35px 25px;
+
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
             transition: 0.3s;
         }
 
@@ -305,15 +309,15 @@
             line-height: 1.6;
         }
 
-
-        /* =========================
-           ABOUT
-        ========================= */
+        /* ================= ABOUT ================= */
 
         .about {
             padding: 80px 10%;
+
             background: #2e7d32;
+
             color: white;
+
             text-align: center;
         }
 
@@ -324,15 +328,15 @@
 
         .about p {
             max-width: 800px;
+
             margin: auto;
+
             font-size: 19px;
+
             line-height: 1.8;
         }
 
-
-        /* =========================
-           OPEN APP
-        ========================= */
+        /* ================= APP ================= */
 
         .download {
             padding: 80px 10%;
@@ -341,42 +345,55 @@
 
         .download h2 {
             font-size: 40px;
+
             color: #1b5e20;
+
             margin-bottom: 20px;
         }
 
         .download p {
             color: #666;
+
             font-size: 18px;
+
             margin-bottom: 30px;
         }
 
         .big-download {
             display: inline-block;
+
             background: #2e7d32;
+
             color: white;
+
             padding: 20px 40px;
+
             border-radius: 40px;
+
             text-decoration: none;
+
             font-size: 18px;
+
             font-weight: bold;
+
             transition: 0.3s;
         }
 
         .big-download:hover {
             background: #1b5e20;
+
             transform: scale(1.05);
         }
 
-
-        /* =========================
-           FOOTER
-        ========================= */
+        /* ================= FOOTER ================= */
 
         footer {
             background: #173d1a;
+
             color: white;
+
             text-align: center;
+
             padding: 25px;
         }
 
@@ -384,10 +401,7 @@
             color: #d5e8d6;
         }
 
-
-        /* =========================
-           MOBILE
-        ========================= */
+        /* ================= MOBILE ================= */
 
         @media (max-width: 850px) {
 
@@ -397,6 +411,7 @@
 
             .hero-container {
                 flex-direction: column;
+
                 text-align: center;
             }
 
@@ -411,7 +426,8 @@
 
             .camera-section {
                 width: 100%;
-                max-width: 390px;
+                max-width: 400px;
+
                 flex: none;
             }
 
@@ -419,7 +435,6 @@
                 font-size: 42px;
             }
         }
-
 
         @media (max-width: 600px) {
 
@@ -429,6 +444,7 @@
 
             nav a {
                 margin-left: 10px;
+
                 font-size: 14px;
             }
 
@@ -446,474 +462,472 @@
                 font-size: 32px;
             }
 
-            #webcam-container canvas {
-                width: 240px !important;
-                height: 240px !important;
+            #camera-container video {
+                width: 240px;
+                height: 240px;
             }
         }
 
     </style>
+
 </head>
 
 
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================= -->
 
-    <nav>
+<!-- ================= NAVIGATION ================= -->
 
-        <div class="logo">
-            Plant<span>Doc</span> 🌱
-        </div>
+<nav>
 
-        <div>
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-            <a href="#download">Open App</a>
-        </div>
+    <div class="logo">
+        Plant<span>Doc</span> 🌱
+    </div>
 
-    </nav>
+    <div>
 
-
-    <!-- =========================
-         HERO
-    ========================= -->
-
-    <section class="hero">
-
-        <div class="hero-container">
-
-
-            <!-- LEFT SIDE -->
-
-            <div class="hero-content">
-
-                <div class="hero-icon">
-                    🌿🤖
-                </div>
-
-                <h1>
-                    Your Plant's <span>AI Doctor</span>
-                </h1>
-
-                <p>
-                    PlantDoc helps you monitor your plants from afar
-                    and check their health using the power of
-                    Artificial Intelligence.
-                    Keep your plants healthy, anytime and anywhere.
-                </p>
-
-
-                <div class="buttons">
-
-                    <!-- THUNKABLE APP -->
-
-                    <a
-                        href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
-                        class="download-btn"
-                        target="_blank"
-                        rel="noopener noreferrer">
-
-                        🚀 Open PlantDoc
-
-                    </a>
-
-
-                    <a
-                        href="#features"
-                        class="learn-btn">
-
-                        Learn More
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- RIGHT SIDE AI CAMERA -->
-
-            <div class="camera-section">
-
-                <h2>
-                    🤖 AI Plant Scanner
-                </h2>
-
-                <p class="camera-description">
-                    Use your camera to check your plant's health.
-                </p>
-
-
-                <!-- START BUTTON -->
-
-                <button
-                    type="button"
-                    class="camera-button"
-                    id="startButton"
-                    onclick="init()">
-
-                    📷 Start AI Camera
-
-                </button>
-
-
-                <!-- WEBCAM -->
-
-                <div id="webcam-container">
-                    <p style="color:#777;">
-                        Camera not started
-                    </p>
-                </div>
-
-
-                <!-- RESULT -->
-
-                <div class="result-title">
-                    AI Analysis
-                </div>
-
-                <div id="label-container">
-                    <div>
-                        Waiting for camera...
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         FEATURES
-    ========================= -->
-
-    <section class="features" id="features">
-
-        <h2 class="section-title">
-            Smart Plant Care
-        </h2>
-
-        <p class="section-description">
-            Everything you need to understand and monitor your plants.
-        </p>
-
-
-        <div class="feature-container">
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    🤖
-                </div>
-
-                <h3>
-                    AI Plant Health Check
-                </h3>
-
-                <p>
-                    Use AI technology to analyze your plant
-                    and help identify possible health problems.
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    📱
-                </div>
-
-                <h3>
-                    Monitor From Afar
-                </h3>
-
-                <p>
-                    Keep track of your plants remotely and stay
-                    connected to their condition wherever you are.
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    🌱
-                </div>
-
-                <h3>
-                    Plant Information
-                </h3>
-
-                <p>
-                    Get useful information to better understand
-                    your plants and provide better care.
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    💡
-                </div>
-
-                <h3>
-                    Smart Assistance
-                </h3>
-
-                <p>
-                    Get helpful insights and recommendations to
-                    support healthier plant growth.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         ABOUT
-    ========================= -->
-
-    <section class="about" id="about">
-
-        <h2>
-            What is PlantDoc?
-        </h2>
-
-        <p>
-            PlantDoc is an innovative plant monitoring application
-            designed to help plant owners understand their plants better.
-            By combining remote monitoring with Artificial Intelligence,
-            PlantDoc makes plant care smarter, easier, and more accessible.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         OPEN APP
-    ========================= -->
-
-    <section class="download" id="download">
-
-        <h2>
-            Ready to Meet Your Plant's Doctor? 🌱
-        </h2>
-
-        <p>
-            Open PlantDoc and start monitoring your plants today.
-        </p>
-
-
-        <a
-            href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
-            class="big-download"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            🚀 Open PlantDoc App
-
+        <a href="#features">
+            Features
         </a>
 
-    </section>
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#download">
+            Open App
+        </a>
+
+    </div>
+
+</nav>
 
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
+<!-- ================= HERO ================= -->
 
-    <footer>
+<section class="hero">
+
+<div class="hero-container">
+
+
+    <!-- LEFT -->
+
+    <div class="hero-content">
+
+        <div class="hero-icon">
+            🌿🤖
+        </div>
+
+        <h1>
+            Your Plant's <span>AI Doctor</span>
+        </h1>
 
         <p>
-            © 2026 PlantDoc.
-            Smart Plant Care Powered by AI. 🌿
+            PlantDoc helps you monitor your plants from afar
+            and check their health using Artificial Intelligence.
+            Keep your plants healthy, anytime and anywhere.
         </p>
 
-    </footer>
+
+        <div class="buttons">
+
+            <a
+                href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
+                class="download-btn"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                🚀 Open PlantDoc
+
+            </a>
 
 
-    <!-- =========================
-         TEACHABLE MACHINE
-    ========================= -->
+            <a
+                href="#features"
+                class="learn-btn">
 
-    <script>
+                Learn More
 
-        // ==========================================
-        // YOUR TEACHABLE MACHINE MODEL
-        // ==========================================
+            </a>
 
-        const URL = "./my_model/";
+        </div>
 
-
-        let model;
-        let webcam;
-        let labelContainer;
-        let maxPredictions;
+    </div>
 
 
-        // ==========================================
-        // START CAMERA
-        // ==========================================
+    <!-- RIGHT CAMERA -->
 
-        async function init() {
+    <div class="camera-section">
 
-            const startButton =
-                document.getElementById("startButton");
+        <h2>
+            🤖 AI Plant Scanner
+        </h2>
 
-            startButton.disabled = true;
-            startButton.innerHTML = "⏳ Loading AI...";
+        <p class="camera-description">
 
+            Use your laptop or phone camera
+            to scan your plant.
 
-            try {
-
-                const modelURL =
-                    URL + "model.json";
-
-                const metadataURL =
-                    URL + "metadata.json";
+        </p>
 
 
-                // Load AI model
+        <button
+            id="startButton"
+            class="camera-button"
+            onclick="startCamera()">
 
-                model = await tmImage.load(
+            📷 Start Camera
+
+        </button>
+
+
+        <div id="camera-container">
+
+            <p style="color:#777; padding:20px;">
+
+                Camera not started
+
+            </p>
+
+        </div>
+
+
+        <div class="result-title">
+
+            AI Analysis
+
+        </div>
+
+
+        <div id="label-container">
+
+            <div>
+                Waiting for camera...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features" id="features">
+
+    <h2 class="section-title">
+        Smart Plant Care
+    </h2>
+
+    <p class="section-description">
+        Everything you need to understand and monitor your plants.
+    </p>
+
+
+    <div class="feature-container">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Plant Health Check
+            </h3>
+
+            <p>
+                Use AI technology to analyze your plant
+                and help identify possible health problems.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📱
+            </div>
+
+            <h3>
+                Monitor From Afar
+            </h3>
+
+            <p>
+                Keep track of your plants remotely and stay
+                connected to their condition wherever you are.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🌱
+            </div>
+
+            <h3>
+                Plant Information
+            </h3>
+
+            <p>
+                Get useful information to better understand
+                your plants and provide better care.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💡
+            </div>
+
+            <h3>
+                Smart Assistance
+            </h3>
+
+            <p>
+                Get helpful insights and recommendations to
+                support healthier plant growth.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+    <h2>
+        What is PlantDoc?
+    </h2>
+
+    <p>
+
+        PlantDoc is an innovative plant monitoring application
+        designed to help plant owners understand their plants better.
+        By combining remote monitoring with Artificial Intelligence,
+        PlantDoc makes plant care smarter, easier, and more accessible.
+
+    </p>
+
+</section>
+
+
+<!-- ================= OPEN APP ================= -->
+
+<section class="download" id="download">
+
+    <h2>
+        Ready to Meet Your Plant's Doctor? 🌱
+    </h2>
+
+    <p>
+        Open PlantDoc and start monitoring your plants today.
+    </p>
+
+
+    <a
+        href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
+        class="big-download"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        🚀 Open PlantDoc App
+
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 PlantDoc.
+        Smart Plant Care Powered by AI. 🌿
+    </p>
+
+</footer>
+
+
+<!-- ================= CAMERA + AI ================= -->
+
+<script>
+
+    // ==========================================
+    // TEACHABLE MACHINE MODEL
+    // ==========================================
+
+    const URL = "./my_model/";
+
+
+    let model = null;
+
+    let video = null;
+
+    let stream = null;
+
+    let canvas = null;
+
+    let labelContainer = null;
+
+    let maxPredictions = 0;
+
+    let running = false;
+
+
+    // ==========================================
+    // START CAMERA
+    // ==========================================
+
+    async function startCamera() {
+
+        const button =
+            document.getElementById("startButton");
+
+        const container =
+            document.getElementById("camera-container");
+
+        labelContainer =
+            document.getElementById("label-container");
+
+
+        button.disabled = true;
+
+        button.innerHTML =
+            "⏳ Requesting camera...";
+
+
+        try {
+
+
+            // ==================================
+            // CHECK CAMERA SUPPORT
+            // ==================================
+
+            if (!navigator.mediaDevices ||
+                !navigator.mediaDevices.getUserMedia) {
+
+                throw new Error(
+                    "Camera API is not supported by this browser."
+                );
+
+            }
+
+
+            // ==================================
+            // REQUEST CAMERA PERMISSION
+            // ==================================
+
+            stream =
+                await navigator.mediaDevices.getUserMedia({
+
+                    video: {
+
+                        facingMode: {
+                            ideal: "environment"
+                        },
+
+                        width: {
+                            ideal: 1280
+                        },
+
+                        height: {
+                            ideal: 720
+                        }
+
+                    },
+
+                    audio: false
+
+                });
+
+
+            // ==================================
+            // CREATE VIDEO
+            // ==================================
+
+            container.innerHTML = "";
+
+
+            video =
+                document.createElement("video");
+
+
+            video.autoplay = true;
+
+            video.playsInline = true;
+
+            video.muted = true;
+
+            video.srcObject = stream;
+
+
+            container.appendChild(video);
+
+
+            await video.play();
+
+
+            // ==================================
+            // LOAD TEACHABLE MACHINE
+            // ==================================
+
+            button.innerHTML =
+                "⏳ Loading AI...";
+
+
+            const modelURL =
+                URL + "model.json";
+
+            const metadataURL =
+                URL + "metadata.json";
+
+
+            model =
+                await tmImage.load(
                     modelURL,
                     metadataURL
                 );
 
 
-                maxPredictions =
-                    model.getTotalClasses();
+            maxPredictions =
+                model.getTotalClasses();
 
 
-                // ==================================
-                // CREATE WEBCAM
-                // ==================================
+            // ==================================
+            // CREATE CANVAS
+            // ==================================
 
-                const flip = true;
-
-                webcam =
-                    new tmImage.Webcam(
-                        280,
-                        280,
-                        flip
-                    );
+            canvas =
+                document.createElement("canvas");
 
 
-                await webcam.setup();
+            canvas.width = 224;
 
-                await webcam.play();
-
-
-                window.requestAnimationFrame(loop);
+            canvas.height = 224;
 
 
-                // ==================================
-                // SHOW CAMERA
-                // ==================================
+            // ==================================
+            // CREATE AI LABELS
+            // ==================================
 
-                const webcamContainer =
-                    document.getElementById(
-                        "webcam-container"
-                    );
-
-
-                webcamContainer.innerHTML = "";
-
-                webcamContainer.appendChild(
-                    webcam.canvas
-                );
-
-
-                // ==================================
-                // CREATE AI LABELS
-                // ==================================
-
-                labelContainer =
-                    document.getElementById(
-                        "label-container"
-                    );
-
-
-                labelContainer.innerHTML = "";
-
-
-                for (
-                    let i = 0;
-                    i < maxPredictions;
-                    i++
-                ) {
-
-                    labelContainer.appendChild(
-                        document.createElement("div")
-                    );
-
-                }
-
-
-                startButton.innerHTML =
-                    "🟢 AI Camera Running";
-
-
-            }
-
-            catch (error) {
-
-                console.error(error);
-
-
-                startButton.disabled = false;
-
-                startButton.innerHTML =
-                    "📷 Start AI Camera";
-
-
-                document.getElementById(
-                    "webcam-container"
-                ).innerHTML =
-                    "<p style='color:#d32f2f;padding:20px;'>Unable to access camera. Please allow camera permission.</p>";
-
-            }
-
-        }
-
-
-        // ==========================================
-        // CAMERA LOOP
-        // ==========================================
-
-        async function loop() {
-
-            webcam.update();
-
-            await predict();
-
-            window.requestAnimationFrame(loop);
-
-        }
-
-
-        // ==========================================
-        // AI PREDICTION
-        // ==========================================
-
-        async function predict() {
-
-            const prediction =
-                await model.predict(
-                    webcam.canvas
-                );
+            labelContainer.innerHTML = "";
 
 
             for (
@@ -922,25 +936,159 @@
                 i++
             ) {
 
-                const classPrediction =
-                    prediction[i].className +
-                    ": " +
+                const label =
+                    document.createElement("div");
+
+
+                labelContainer.appendChild(label);
+
+            }
+
+
+            // ==================================
+            // CAMERA STARTED
+            // ==================================
+
+            running = true;
+
+            button.innerHTML =
+                "🟢 Camera Running";
+
+
+            predict();
+
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "📷 Start Camera";
+
+
+            container.innerHTML = `
+
+                <div style="
+                    padding:25px;
+                    color:#c62828;
+                    text-align:center;
+                ">
+
+                    <strong>
+                        ⚠️ Camera could not start
+                    </strong>
+
+                    <br><br>
+
+                    ${error.message}
+
+                    <br><br>
+
+                    Please check your browser's
+                    camera permission.
+
+                </div>
+
+            `;
+
+
+            labelContainer.innerHTML = `
+
+                <div style="color:#c62828;">
+
+                    Camera permission is required.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    // ==========================================
+    // AI PREDICTION LOOP
+    // ==========================================
+
+    async function predict() {
+
+        if (!running) {
+            return;
+        }
+
+
+        try {
+
+            // Draw camera frame onto canvas
+
+            const context =
+                canvas.getContext("2d");
+
+
+            context.drawImage(
+                video,
+                0,
+                0,
+                224,
+                224
+            );
+
+
+            // Run AI prediction
+
+            const prediction =
+                await model.predict(canvas);
+
+
+            // Display results
+
+            for (
+                let i = 0;
+                i < maxPredictions;
+                i++
+            ) {
+
+                const percentage =
                     (
                         prediction[i].probability * 100
-                    ).toFixed(1) +
-                    "%";
+                    ).toFixed(1);
 
 
                 labelContainer
                     .childNodes[i]
                     .innerHTML =
-                    classPrediction;
+
+                    prediction[i].className +
+                    ": " +
+                    percentage +
+                    "%";
 
             }
 
         }
 
-    </script>
+        catch (error) {
+
+            console.error(
+                "Prediction error:",
+                error
+            );
+
+        }
+
+
+        requestAnimationFrame(predict);
+
+    }
+
+</script>
+
 
 </body>
 </html>
