@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -171,7 +170,7 @@
             margin-bottom: 20px;
         }
 
-        /* VIDEO */
+        /* ================= VIDEO ================= */
 
         #camera-container {
             width: 100%;
@@ -191,15 +190,25 @@
         }
 
         #camera-container video {
-            width: 280px;
+            width: 100%;
+            max-width: 350px;
             height: 280px;
 
             object-fit: cover;
 
             border-radius: 15px;
+
+            background: black;
         }
 
-        /* CAMERA BUTTON */
+        /* ================= CAMERA BUTTONS ================= */
+
+        .camera-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
         .camera-button {
             border: none;
@@ -207,7 +216,7 @@
             background: #2e7d32;
             color: white;
 
-            padding: 14px 28px;
+            padding: 14px 22px;
 
             border-radius: 25px;
 
@@ -227,9 +236,35 @@
         .camera-button:disabled {
             background: #999;
             cursor: not-allowed;
+            transform: none;
         }
 
-        /* AI RESULTS */
+        .switch-button {
+            background: #607d8b;
+        }
+
+        .switch-button:hover {
+            background: #455a64;
+        }
+
+        .stop-button {
+            background: #c62828;
+        }
+
+        .stop-button:hover {
+            background: #8e0000;
+        }
+
+        /* ================= CAMERA STATUS ================= */
+
+        #camera-status {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #666;
+            min-height: 20px;
+        }
+
+        /* ================= AI RESULTS ================= */
 
         .result-title {
             margin-top: 18px;
@@ -247,6 +282,30 @@
 
         #label-container div {
             padding: 5px;
+        }
+
+        .prediction {
+            margin: 6px 0;
+        }
+
+        .prediction-name {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .prediction-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .prediction-fill {
+            height: 100%;
+            background: #4caf50;
+            width: 0%;
+            transition: width 0.2s;
         }
 
         /* ================= FEATURES ================= */
@@ -426,7 +485,7 @@
 
             .camera-section {
                 width: 100%;
-                max-width: 400px;
+                max-width: 420px;
 
                 flex: none;
             }
@@ -462,19 +521,20 @@
                 font-size: 32px;
             }
 
+            #camera-container {
+                min-height: 250px;
+            }
+
             #camera-container video {
-                width: 240px;
-                height: 240px;
+                width: 100%;
+                height: 250px;
             }
         }
 
     </style>
-
 </head>
 
-
 <body>
-
 
 <!-- ================= NAVIGATION ================= -->
 
@@ -509,7 +569,6 @@
 
 <div class="hero-container">
 
-
     <!-- LEFT -->
 
     <div class="hero-content">
@@ -528,7 +587,6 @@
             Keep your plants healthy, anytime and anywhere.
         </p>
 
-
         <div class="buttons">
 
             <a
@@ -540,7 +598,6 @@
                 🚀 Open PlantDoc
 
             </a>
-
 
             <a
                 href="#features"
@@ -570,16 +627,42 @@
 
         </p>
 
+        <div class="camera-buttons">
 
-        <button
-            id="startButton"
-            class="camera-button"
-            onclick="startCamera()">
+            <button
+                id="startButton"
+                class="camera-button"
+                onclick="startCamera()">
 
-            📷 Start Camera
+                📷 Start Camera
 
-        </button>
+            </button>
 
+            <button
+                id="switchButton"
+                class="camera-button switch-button"
+                onclick="switchCamera()"
+                disabled>
+
+                🔄 Switch
+
+            </button>
+
+            <button
+                id="stopButton"
+                class="camera-button stop-button"
+                onclick="stopCamera()"
+                disabled>
+
+                ⛔ Stop
+
+            </button>
+
+        </div>
+
+        <div id="camera-status">
+            Camera not started
+        </div>
 
         <div id="camera-container">
 
@@ -591,13 +674,9 @@
 
         </div>
 
-
         <div class="result-title">
-
             AI Analysis
-
         </div>
-
 
         <div id="label-container">
 
@@ -626,9 +705,7 @@
         Everything you need to understand and monitor your plants.
     </p>
 
-
     <div class="feature-container">
-
 
         <div class="feature-card">
 
@@ -701,7 +778,6 @@
 
         </div>
 
-
     </div>
 
 </section>
@@ -739,7 +815,6 @@
         Open PlantDoc and start monitoring your plants today.
     </p>
 
-
     <a
         href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
         class="big-download"
@@ -769,12 +844,11 @@
 
 <script>
 
-    // ==========================================
+    // =====================================================
     // TEACHABLE MACHINE MODEL
-    // ==========================================
+    // =====================================================
 
-    const URL = "./my_model/";
-
+    const MODEL_URL = "./my_model/";
 
     let model = null;
 
@@ -790,84 +864,153 @@
 
     let running = false;
 
+    let currentFacingMode = "environment";
 
-    // ==========================================
+
+    // =====================================================
+    // ELEMENTS
+    // =====================================================
+
+    const startButton =
+        document.getElementById("startButton");
+
+    const switchButton =
+        document.getElementById("switchButton");
+
+    const stopButton =
+        document.getElementById("stopButton");
+
+    const cameraContainer =
+        document.getElementById("camera-container");
+
+    const cameraStatus =
+        document.getElementById("camera-status");
+
+    labelContainer =
+        document.getElementById("label-container");
+
+
+    // =====================================================
+    // CHECK SECURE CONNECTION
+    // =====================================================
+
+    function checkSecureConnection() {
+
+        if (!window.isSecureContext) {
+
+            cameraStatus.innerHTML =
+                "🔒 Camera requires HTTPS. Open this website using your HTTPS GitHub Pages link.";
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    // =====================================================
     // START CAMERA
-    // ==========================================
+    // =====================================================
 
     async function startCamera() {
 
-        const button =
-            document.getElementById("startButton");
+        if (!checkSecureConnection()) {
+            return;
+        }
 
-        const container =
-            document.getElementById("camera-container");
+        startButton.disabled = true;
 
-        labelContainer =
-            document.getElementById("label-container");
+        switchButton.disabled = true;
 
+        stopButton.disabled = true;
 
-        button.disabled = true;
-
-        button.innerHTML =
-            "⏳ Requesting camera...";
+        cameraStatus.innerHTML =
+            "⏳ Requesting camera permission...";
 
 
         try {
 
+            // Stop any previous camera
+            stopCamera(false);
 
-            // ==================================
-            // CHECK CAMERA SUPPORT
-            // ==================================
 
-            if (!navigator.mediaDevices ||
-                !navigator.mediaDevices.getUserMedia) {
+            // =================================================
+            // CAMERA SETTINGS
+            // =================================================
 
-                throw new Error(
-                    "Camera API is not supported by this browser."
+            let constraints = {
+
+                audio: false,
+
+                video: {
+
+                    width: {
+                        ideal: 1280
+                    },
+
+                    height: {
+                        ideal: 720
+                    },
+
+                    facingMode: {
+                        ideal: currentFacingMode
+                    }
+
+                }
+
+            };
+
+
+            // =================================================
+            // REQUEST CAMERA
+            // =================================================
+
+            try {
+
+                stream =
+                    await navigator.mediaDevices.getUserMedia(
+                        constraints
+                    );
+
+            }
+
+            catch (firstError) {
+
+                console.log(
+                    "Preferred camera failed:",
+                    firstError
                 );
+
+
+                // ---------------------------------------------
+                // FALLBACK
+                // Try any available camera
+                // ---------------------------------------------
+
+                cameraStatus.innerHTML =
+                    "🔄 Trying another camera...";
+
+
+                stream =
+                    await navigator.mediaDevices.getUserMedia({
+
+                        audio: false,
+
+                        video: true
+
+                    });
 
             }
 
 
-            // ==================================
-            // REQUEST CAMERA PERMISSION
-            // ==================================
-
-            stream =
-                await navigator.mediaDevices.getUserMedia({
-
-                    video: {
-
-                        facingMode: {
-                            ideal: "environment"
-                        },
-
-                        width: {
-                            ideal: 1280
-                        },
-
-                        height: {
-                            ideal: 720
-                        }
-
-                    },
-
-                    audio: false
-
-                });
-
-
-            // ==================================
+            // =================================================
             // CREATE VIDEO
-            // ==================================
+            // =================================================
 
-            container.innerHTML = "";
-
+            cameraContainer.innerHTML = "";
 
             video =
                 document.createElement("video");
-
 
             video.autoplay = true;
 
@@ -875,28 +1018,53 @@
 
             video.muted = true;
 
+            video.setAttribute(
+                "playsinline",
+                ""
+            );
+
             video.srcObject = stream;
 
+            cameraContainer.appendChild(video);
 
-            container.appendChild(video);
+
+            // Wait until video has dimensions
+
+            await new Promise((resolve) => {
+
+                if (video.readyState >= 2) {
+
+                    resolve();
+
+                }
+
+                else {
+
+                    video.onloadedmetadata = () => {
+                        resolve();
+                    };
+
+                }
+
+            });
 
 
             await video.play();
 
 
-            // ==================================
-            // LOAD TEACHABLE MACHINE
-            // ==================================
+            // =================================================
+            // LOAD AI MODEL
+            // =================================================
 
-            button.innerHTML =
-                "⏳ Loading AI...";
+            cameraStatus.innerHTML =
+                "🤖 Loading AI model...";
 
 
             const modelURL =
-                URL + "model.json";
+                MODEL_URL + "model.json";
 
             const metadataURL =
-                URL + "metadata.json";
+                MODEL_URL + "metadata.json";
 
 
             model =
@@ -910,22 +1078,21 @@
                 model.getTotalClasses();
 
 
-            // ==================================
+            // =================================================
             // CREATE CANVAS
-            // ==================================
+            // =================================================
 
             canvas =
                 document.createElement("canvas");
-
 
             canvas.width = 224;
 
             canvas.height = 224;
 
 
-            // ==================================
-            // CREATE AI LABELS
-            // ==================================
+            // =================================================
+            // CREATE LABELS
+            // =================================================
 
             labelContainer.innerHTML = "";
 
@@ -936,72 +1103,176 @@
                 i++
             ) {
 
-                const label =
+                const predictionBox =
                     document.createElement("div");
 
+                predictionBox.className =
+                    "prediction";
 
-                labelContainer.appendChild(label);
+                predictionBox.innerHTML = `
+
+                    <div class="prediction-name">
+                        Loading...
+                    </div>
+
+                    <div class="prediction-bar">
+
+                        <div
+                            class="prediction-fill">
+                        </div>
+
+                    </div>
+
+                `;
+
+                labelContainer.appendChild(
+                    predictionBox
+                );
 
             }
 
 
-            // ==================================
-            // CAMERA STARTED
-            // ==================================
+            // =================================================
+            // CAMERA READY
+            // =================================================
 
             running = true;
 
-            button.innerHTML =
+            startButton.disabled = true;
+
+            switchButton.disabled = false;
+
+            stopButton.disabled = false;
+
+            startButton.innerHTML =
                 "🟢 Camera Running";
 
+            cameraStatus.innerHTML =
+                "📷 Camera ready — point it at your plant.";
 
+
+            // Start AI
             predict();
-
 
         }
 
+
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "Camera error:",
+                error
+            );
 
 
-            button.disabled = false;
+            running = false;
 
-            button.innerHTML =
+
+            // Stop stream if partially created
+
+            if (stream) {
+
+                stream
+                    .getTracks()
+                    .forEach(track => track.stop());
+
+                stream = null;
+
+            }
+
+
+            startButton.disabled = false;
+
+            switchButton.disabled = true;
+
+            stopButton.disabled = true;
+
+            startButton.innerHTML =
                 "📷 Start Camera";
 
 
-            container.innerHTML = `
+            let message =
+                "Camera could not start.";
+
+
+            // =================================================
+            // ERROR MESSAGES
+            // =================================================
+
+            if (error.name === "NotAllowedError") {
+
+                message =
+                    "❌ Camera permission was denied. Please allow camera access in your browser settings.";
+
+            }
+
+            else if (error.name === "NotFoundError") {
+
+                message =
+                    "❌ No camera was found on this device.";
+
+            }
+
+            else if (error.name === "NotReadableError") {
+
+                message =
+                    "❌ Camera is already being used by another application.";
+
+            }
+
+            else if (error.name === "OverconstrainedError") {
+
+                message =
+                    "❌ The requested camera settings are not available. Try switching camera.";
+
+            }
+
+            else if (error.name === "SecurityError") {
+
+                message =
+                    "🔒 Camera access was blocked for security reasons. Make sure you are using HTTPS.";
+
+            }
+
+            else if (error.name === "TypeError") {
+
+                message =
+                    "🔒 Camera access is unavailable. Make sure the website is opened using HTTPS.";
+
+            }
+
+            else {
+
+                message =
+                    "❌ " + error.message;
+
+            }
+
+
+            cameraStatus.innerHTML =
+                message;
+
+
+            cameraContainer.innerHTML = `
 
                 <div style="
                     padding:25px;
-                    color:#c62828;
                     text-align:center;
+                    color:#c62828;
                 ">
 
                     <strong>
-                        ⚠️ Camera could not start
+                        ⚠️ Camera Error
                     </strong>
 
                     <br><br>
 
-                    ${error.message}
+                    ${message}
 
                     <br><br>
 
-                    Please check your browser's
-                    camera permission.
-
-                </div>
-
-            `;
-
-
-            labelContainer.innerHTML = `
-
-                <div style="color:#c62828;">
-
-                    Camera permission is required.
+                    Check your browser camera permission
+                    and try again.
 
                 </div>
 
@@ -1012,24 +1283,148 @@
     }
 
 
-    // ==========================================
-    // AI PREDICTION LOOP
-    // ==========================================
+    // =====================================================
+    // SWITCH CAMERA
+    // =====================================================
+
+    async function switchCamera() {
+
+        if (!stream) {
+            return;
+        }
+
+
+        cameraStatus.innerHTML =
+            "🔄 Switching camera...";
+
+
+        // Change camera
+
+        if (currentFacingMode === "environment") {
+
+            currentFacingMode = "user";
+
+        }
+
+        else {
+
+            currentFacingMode = "environment";
+
+        }
+
+
+        // Stop current stream
+
+        if (stream) {
+
+            stream
+                .getTracks()
+                .forEach(track => track.stop());
+
+            stream = null;
+
+        }
+
+
+        running = false;
+
+
+        // Start new camera
+
+        await startCamera();
+
+    }
+
+
+    // =====================================================
+    // STOP CAMERA
+    // =====================================================
+
+    function stopCamera(updateUI = true) {
+
+        running = false;
+
+
+        if (stream) {
+
+            stream
+                .getTracks()
+                .forEach(track => track.stop());
+
+            stream = null;
+
+        }
+
+
+        if (video) {
+
+            video.srcObject = null;
+
+            video.remove();
+
+            video = null;
+
+        }
+
+
+        if (updateUI) {
+
+            startButton.disabled = false;
+
+            switchButton.disabled = true;
+
+            stopButton.disabled = true;
+
+            startButton.innerHTML =
+                "📷 Start Camera";
+
+            cameraStatus.innerHTML =
+                "Camera stopped.";
+
+            cameraContainer.innerHTML = `
+
+                <p style="
+                    color:#777;
+                    padding:20px;
+                ">
+
+                    Camera not started
+
+                </p>
+
+            `;
+
+            labelContainer.innerHTML = `
+
+                <div>
+                    Waiting for camera...
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    // =====================================================
+    // AI PREDICTION
+    // =====================================================
 
     async function predict() {
 
-        if (!running) {
+        if (!running || !model || !video) {
             return;
         }
 
 
         try {
 
-            // Draw camera frame onto canvas
-
             const context =
                 canvas.getContext("2d");
 
+
+            // Draw current camera frame
 
             context.drawImage(
                 video,
@@ -1040,13 +1435,13 @@
             );
 
 
-            // Run AI prediction
+            // Run AI
 
             const prediction =
                 await model.predict(canvas);
 
 
-            // Display results
+            // Display predictions
 
             for (
                 let i = 0;
@@ -1054,20 +1449,47 @@
                 i++
             ) {
 
+                const probability =
+                    prediction[i].probability;
+
+
                 const percentage =
                     (
-                        prediction[i].probability * 100
+                        probability * 100
                     ).toFixed(1);
 
 
-                labelContainer
-                    .childNodes[i]
-                    .innerHTML =
+                const box =
+                    labelContainer
+                        .children[i];
 
+
+                if (!box) {
+                    continue;
+                }
+
+
+                const name =
+                    box.querySelector(
+                        ".prediction-name"
+                    );
+
+
+                const fill =
+                    box.querySelector(
+                        ".prediction-fill"
+                    );
+
+
+                name.innerHTML =
                     prediction[i].className +
-                    ": " +
+                    " — " +
                     percentage +
                     "%";
+
+
+                fill.style.width =
+                    percentage + "%";
 
             }
 
@@ -1083,13 +1505,19 @@
         }
 
 
-        requestAnimationFrame(predict);
+        // Continue prediction
+
+        if (running) {
+
+            requestAnimationFrame(
+                predict
+            );
+
+        }
 
     }
 
 </script>
 
-
 </body>
 </html>
-```
