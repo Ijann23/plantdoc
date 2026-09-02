@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -115,6 +114,8 @@
             max-width: 650px;
         }
 
+        /* ================= BUTTONS ================= */
+
         .buttons a {
             display: inline-block;
             padding: 16px 30px;
@@ -208,6 +209,7 @@
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
+            margin-bottom: 10px;
         }
 
         .camera-button {
@@ -280,17 +282,14 @@
             color: #444;
         }
 
-        #label-container div {
-            padding: 5px;
-        }
-
         .prediction {
-            margin: 6px 0;
+            margin: 8px 0;
+            text-align: left;
         }
 
         .prediction-name {
             font-weight: bold;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .prediction-bar {
@@ -329,9 +328,7 @@
 
         .feature-container {
             display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(230px, 1fr));
-
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 25px;
         }
 
@@ -342,8 +339,7 @@
 
             border-radius: 20px;
 
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 
             transition: 0.3s;
         }
@@ -470,7 +466,6 @@
 
             .hero-container {
                 flex-direction: column;
-
                 text-align: center;
             }
 
@@ -486,7 +481,6 @@
             .camera-section {
                 width: 100%;
                 max-width: 420px;
-
                 flex: none;
             }
 
@@ -503,7 +497,6 @@
 
             nav a {
                 margin-left: 10px;
-
                 font-size: 14px;
             }
 
@@ -530,7 +523,6 @@
                 height: 250px;
             }
         }
-
     </style>
 </head>
 
@@ -567,128 +559,128 @@
 
 <section class="hero">
 
-<div class="hero-container">
+    <div class="hero-container">
 
-    <!-- LEFT -->
+        <!-- LEFT -->
 
-    <div class="hero-content">
+        <div class="hero-content">
 
-        <div class="hero-icon">
-            🌿🤖
-        </div>
+            <div class="hero-icon">
+                🌿🤖
+            </div>
 
-        <h1>
-            Your Plant's <span>AI Doctor</span>
-        </h1>
+            <h1>
+                Your Plant's <span>AI Doctor</span>
+            </h1>
 
-        <p>
-            PlantDoc helps you monitor your plants from afar
-            and check their health using Artificial Intelligence.
-            Keep your plants healthy, anytime and anywhere.
-        </p>
+            <p>
+                PlantDoc helps you monitor your plants from afar
+                and check their health using Artificial Intelligence.
+                Keep your plants healthy, anytime and anywhere.
+            </p>
 
-        <div class="buttons">
+            <div class="buttons">
 
-            <a
-                href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
-                class="download-btn"
-                target="_blank"
-                rel="noopener noreferrer">
+                <a
+                    href="https://ai.thunkable.com/w/ZAE875TTYpQ52dj6jZwwb"
+                    class="download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer">
 
-                🚀 Open PlantDoc
+                    🚀 Open PlantDoc
 
-            </a>
+                </a>
 
-            <a
-                href="#features"
-                class="learn-btn">
+                <a
+                    href="#features"
+                    class="learn-btn">
 
-                Learn More
+                    Learn More
 
-            </a>
+                </a>
 
-        </div>
-
-    </div>
-
-
-    <!-- RIGHT CAMERA -->
-
-    <div class="camera-section">
-
-        <h2>
-            🤖 AI Plant Scanner
-        </h2>
-
-        <p class="camera-description">
-
-            Use your laptop or phone camera
-            to scan your plant.
-
-        </p>
-
-        <div class="camera-buttons">
-
-            <button
-                id="startButton"
-                class="camera-button"
-                onclick="startCamera()">
-
-                📷 Start Camera
-
-            </button>
-
-            <button
-                id="switchButton"
-                class="camera-button switch-button"
-                onclick="switchCamera()"
-                disabled>
-
-                🔄 Switch
-
-            </button>
-
-            <button
-                id="stopButton"
-                class="camera-button stop-button"
-                onclick="stopCamera()"
-                disabled>
-
-                ⛔ Stop
-
-            </button>
+            </div>
 
         </div>
 
-        <div id="camera-status">
-            Camera not started
-        </div>
 
-        <div id="camera-container">
+        <!-- RIGHT CAMERA -->
 
-            <p style="color:#777; padding:20px;">
+        <div class="camera-section">
 
-                Camera not started
+            <h2>
+                🤖 AI Plant Scanner
+            </h2>
+
+            <p class="camera-description">
+
+                Use your laptop or phone camera
+                to scan your plant.
 
             </p>
 
-        </div>
+            <div class="camera-buttons">
 
-        <div class="result-title">
-            AI Analysis
-        </div>
+                <button
+                    id="startButton"
+                    class="camera-button"
+                    onclick="startCamera()">
 
-        <div id="label-container">
+                    📷 Start Camera
 
-            <div>
-                Waiting for camera...
+                </button>
+
+                <button
+                    id="switchButton"
+                    class="camera-button switch-button"
+                    onclick="switchCamera()"
+                    disabled>
+
+                    🔄 Switch
+
+                </button>
+
+                <button
+                    id="stopButton"
+                    class="camera-button stop-button"
+                    onclick="stopCamera()"
+                    disabled>
+
+                    ⛔ Stop
+
+                </button>
+
+            </div>
+
+            <div id="camera-status">
+                Camera not started
+            </div>
+
+            <div id="camera-container">
+
+                <p style="color:#777; padding:20px;">
+
+                    Camera not started
+
+                </p>
+
+            </div>
+
+            <div class="result-title">
+                AI Analysis
+            </div>
+
+            <div id="label-container">
+
+                <div>
+                    Waiting for camera...
+                </div>
+
             </div>
 
         </div>
 
     </div>
-
-</div>
 
 </section>
 
@@ -851,17 +843,10 @@
     const MODEL_URL = "./my_model/";
 
     let model = null;
-
     let video = null;
-
     let stream = null;
-
     let canvas = null;
-
-    let labelContainer = null;
-
     let maxPredictions = 0;
-
     let running = false;
 
     let currentFacingMode = "environment";
@@ -886,12 +871,12 @@
     const cameraStatus =
         document.getElementById("camera-status");
 
-    labelContainer =
+    const labelContainer =
         document.getElementById("label-container");
 
 
     // =====================================================
-    // CHECK SECURE CONNECTION
+    // CHECK HTTPS
     // =====================================================
 
     function checkSecureConnection() {
@@ -899,7 +884,7 @@
         if (!window.isSecureContext) {
 
             cameraStatus.innerHTML =
-                "🔒 Camera requires HTTPS. Open this website using your HTTPS GitHub Pages link.";
+                "🔒 Camera requires HTTPS. Please open your GitHub Pages HTTPS link.";
 
             return false;
         }
@@ -919,9 +904,7 @@
         }
 
         startButton.disabled = true;
-
         switchButton.disabled = true;
-
         stopButton.disabled = true;
 
         cameraStatus.innerHTML =
@@ -930,7 +913,7 @@
 
         try {
 
-            // Stop any previous camera
+            // Stop previous camera
             stopCamera(false);
 
 
@@ -938,7 +921,7 @@
             // CAMERA SETTINGS
             // =================================================
 
-            let constraints = {
+            const constraints = {
 
                 audio: false,
 
@@ -981,15 +964,11 @@
                     firstError
                 );
 
-
-                // ---------------------------------------------
-                // FALLBACK
-                // Try any available camera
-                // ---------------------------------------------
-
                 cameraStatus.innerHTML =
                     "🔄 Trying another camera...";
 
+
+                // Fallback to any available camera
 
                 stream =
                     await navigator.mediaDevices.getUserMedia({
@@ -1013,9 +992,7 @@
                 document.createElement("video");
 
             video.autoplay = true;
-
             video.playsInline = true;
-
             video.muted = true;
 
             video.setAttribute(
@@ -1028,7 +1005,9 @@
             cameraContainer.appendChild(video);
 
 
-            // Wait until video has dimensions
+            // =================================================
+            // WAIT FOR VIDEO
+            // =================================================
 
             await new Promise((resolve) => {
 
@@ -1036,9 +1015,7 @@
 
                     resolve();
 
-                }
-
-                else {
+                } else {
 
                     video.onloadedmetadata = () => {
                         resolve();
@@ -1067,6 +1044,12 @@
                 MODEL_URL + "metadata.json";
 
 
+            console.log(
+                "Loading model:",
+                modelURL
+            );
+
+
             model =
                 await tmImage.load(
                     modelURL,
@@ -1078,6 +1061,12 @@
                 model.getTotalClasses();
 
 
+            console.log(
+                "AI model loaded. Classes:",
+                maxPredictions
+            );
+
+
             // =================================================
             // CREATE CANVAS
             // =================================================
@@ -1086,12 +1075,11 @@
                 document.createElement("canvas");
 
             canvas.width = 224;
-
             canvas.height = 224;
 
 
             // =================================================
-            // CREATE LABELS
+            // CREATE AI RESULT BOXES
             // =================================================
 
             labelContainer.innerHTML = "";
@@ -1109,6 +1097,7 @@
                 predictionBox.className =
                     "prediction";
 
+
                 predictionBox.innerHTML = `
 
                     <div class="prediction-name">
@@ -1125,6 +1114,7 @@
 
                 `;
 
+
                 labelContainer.appendChild(
                     predictionBox
                 );
@@ -1139,9 +1129,7 @@
             running = true;
 
             startButton.disabled = true;
-
             switchButton.disabled = false;
-
             stopButton.disabled = false;
 
             startButton.innerHTML =
@@ -1151,7 +1139,8 @@
                 "📷 Camera ready — point it at your plant.";
 
 
-            // Start AI
+            // Start AI prediction
+
             predict();
 
         }
@@ -1160,7 +1149,7 @@
         catch (error) {
 
             console.error(
-                "Camera error:",
+                "Camera / AI error:",
                 error
             );
 
@@ -1168,13 +1157,15 @@
             running = false;
 
 
-            // Stop stream if partially created
+            // Stop camera
 
             if (stream) {
 
                 stream
                     .getTracks()
-                    .forEach(track => track.stop());
+                    .forEach(
+                        track => track.stop()
+                    );
 
                 stream = null;
 
@@ -1182,9 +1173,7 @@
 
 
             startButton.disabled = false;
-
             switchButton.disabled = true;
-
             stopButton.disabled = true;
 
             startButton.innerHTML =
@@ -1196,7 +1185,7 @@
 
 
             // =================================================
-            // ERROR MESSAGES
+            // ERROR TYPES
             // =================================================
 
             if (error.name === "NotAllowedError") {
@@ -1223,28 +1212,30 @@
             else if (error.name === "OverconstrainedError") {
 
                 message =
-                    "❌ The requested camera settings are not available. Try switching camera.";
+                    "❌ The requested camera settings are unavailable. Try again.";
 
             }
 
             else if (error.name === "SecurityError") {
 
                 message =
-                    "🔒 Camera access was blocked for security reasons. Make sure you are using HTTPS.";
+                    "🔒 Camera access was blocked. Make sure you are using HTTPS.";
 
             }
 
-            else if (error.name === "TypeError") {
+            else if (error.message &&
+                     error.message.includes("404")) {
 
                 message =
-                    "🔒 Camera access is unavailable. Make sure the website is opened using HTTPS.";
+                    "❌ AI model not found. Please check your my_model folder.";
 
             }
 
             else {
 
                 message =
-                    "❌ " + error.message;
+                    "❌ " +
+                    (error.message || "Unknown error.");
 
             }
 
@@ -1262,7 +1253,7 @@
                 ">
 
                     <strong>
-                        ⚠️ Camera Error
+                        ⚠️ Camera / AI Error
                     </strong>
 
                     <br><br>
@@ -1271,8 +1262,8 @@
 
                     <br><br>
 
-                    Check your browser camera permission
-                    and try again.
+                    Please check your camera permission
+                    and GitHub model files.
 
                 </div>
 
@@ -1298,9 +1289,11 @@
             "🔄 Switching camera...";
 
 
-        // Change camera
+        // Change camera mode
 
-        if (currentFacingMode === "environment") {
+        if (
+            currentFacingMode === "environment"
+        ) {
 
             currentFacingMode = "user";
 
@@ -1319,7 +1312,9 @@
 
             stream
                 .getTracks()
-                .forEach(track => track.stop());
+                .forEach(
+                    track => track.stop()
+                );
 
             stream = null;
 
@@ -1345,16 +1340,22 @@
         running = false;
 
 
+        // Stop camera stream
+
         if (stream) {
 
             stream
                 .getTracks()
-                .forEach(track => track.stop());
+                .forEach(
+                    track => track.stop()
+                );
 
             stream = null;
 
         }
 
+
+        // Remove video
 
         if (video) {
 
@@ -1381,6 +1382,7 @@
             cameraStatus.innerHTML =
                 "Camera stopped.";
 
+
             cameraContainer.innerHTML = `
 
                 <p style="
@@ -1393,6 +1395,7 @@
                 </p>
 
             `;
+
 
             labelContainer.innerHTML = `
 
@@ -1413,8 +1416,14 @@
 
     async function predict() {
 
-        if (!running || !model || !video) {
+        if (
+            !running ||
+            !model ||
+            !video
+        ) {
+
             return;
+
         }
 
 
@@ -1424,7 +1433,7 @@
                 canvas.getContext("2d");
 
 
-            // Draw current camera frame
+            // Draw camera image
 
             context.drawImage(
                 video,
@@ -1441,7 +1450,7 @@
                 await model.predict(canvas);
 
 
-            // Display predictions
+            // Display results
 
             for (
                 let i = 0;
@@ -1505,7 +1514,7 @@
         }
 
 
-        // Continue prediction
+        // Continue AI prediction
 
         if (running) {
 
